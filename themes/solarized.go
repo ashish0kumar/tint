@@ -1,0 +1,42 @@
+package themes
+
+import "image/color"
+
+var SolarizedPalettes = map[string]map[string]color.RGBA{
+	"dark": {
+		"base03":  hexToRGBA("#002b36"),
+		"base02":  hexToRGBA("#073642"),
+		"base01":  hexToRGBA("#586e75"),
+		"base00":  hexToRGBA("#657b83"),
+		"base0":   hexToRGBA("#839496"),
+		"base1":   hexToRGBA("#93a1a1"),
+		"base2":   hexToRGBA("#eee8d5"),
+		"base3":   hexToRGBA("#fdf6e3"),
+		"yellow":  hexToRGBA("#b58900"),
+		"orange":  hexToRGBA("#cb4b16"),
+		"red":     hexToRGBA("#dc322f"),
+		"magenta": hexToRGBA("#d33682"),
+		"violet":  hexToRGBA("#6c71c4"),
+		"blue":    hexToRGBA("#268bd2"),
+		"cyan":    hexToRGBA("#2aa198"),
+		"green":   hexToRGBA("#859900"),
+	},
+	"light": {
+		"base03":  hexToRGBA("#fdf6e3"),
+		"base02":  hexToRGBA("#eee8d5"),
+		"base01":  hexToRGBA("#93a1a1"),
+		"base00":  hexToRGBA("#839496"),
+		"base0":   hexToRGBA("#657b83"),
+		"base1":   hexToRGBA("#586e75"),
+		"base2":   hexToRGBA("#073642"),
+		"base3":   hexToRGBA("#002b36"),
+		"yellow":  hexToRGBA("#b58900"),
+		"orange":  hexToRGBA("#cb4b16"),
+		"red":     hexToRGBA("#dc322f"),
+		"magenta": hexToRGBA("#d33682"),
+		"violet":  hexToRGBA("#6c71c4"),
+		"blue":    hexToRGBA("#268bd2"),
+		"cyan":    hexToRGBA("#2aa198"),
+		"green":   hexToRGBA("#859900"),
+	},
+}

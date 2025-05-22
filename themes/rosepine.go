@@ -1,0 +1,51 @@
+package themes
+
+import "image/color"
+
+var RosePinePalettes = map[string]map[string]color.RGBA{
+	"main": {
+		"base":      hexToRGBA("#191724"),
+		"surface":   hexToRGBA("#1f1d2e"),
+		"overlay":   hexToRGBA("#26233a"),
+		"muted":     hexToRGBA("#6e6a86"),
+		"subtle":    hexToRGBA("#908cae"),
+		"text":      hexToRGBA("#e0def4"),
+		"love":      hexToRGBA("#eb6f92"),
+		"gold":      hexToRGBA("#f6c177"),
+		"rose":      hexToRGBA("#ebbcba"),
+		"pine":      hexToRGBA("#31748f"),
+		"foam":      hexToRGBA("#9ccfd8"),
+		"iris":      hexToRGBA("#c4a7e7"),
+		"highlight": hexToRGBA("#424056"),
+	},
+	"dawn": {
+		"base":      hexToRGBA("#faf4ed"),
+		"surface":   hexToRGBA("#fffaf3"),
+		"overlay":   hexToRGBA("#f2e9e1"),
+		"muted":     hexToRGBA("#9893a5"),
+		"subtle":    hexToRGBA("#797593"),
+		"text":      hexToRGBA("#575279"),
+		"love":      hexToRGBA("#bf40bf"),
+		"gold":      hexToRGBA("#ea9d34"),
+		"rose":      hexToRGBA("#d7827e"),
+		"pine":      hexToRGBA("#286983"),
+		"foam":      hexToRGBA("#569488"),
+		"iris":      hexToRGBA("#907aa2"),
+		"highlight": hexToRGBA("#ddd7cd"),
+	},
+	"moon": {
+		"base":      hexToRGBA("#232136"),
+		"surface":   hexToRGBA("#2a273a"),
+		"overlay":   hexToRGBA("#393552"),
+		"muted":     hexToRGBA("#6e6a86"),
+		"subtle":    hexToRGBA("#908cae"),
+		"text":      hexToRGBA("#e0def4"),
+		"love":      hexToRGBA("#eb6f92"),
+		"gold":      hexToRGBA("#f6c177"),
+		"rose":      hexToRGBA("#ebbcba"),
+		"pine":      hexToRGBA("#31748f"),
+		"foam":      hexToRGBA("#9ccfd8"),
+		"iris":      hexToRGBA("#c4a7e7"),
+		"highlight": hexToRGBA("#424056"),
+	},
+}
