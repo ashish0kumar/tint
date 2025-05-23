@@ -2,7 +2,25 @@ package themes
 
 import "image/color"
 
-var EverforestPalettes = map[string]map[string]color.RGBA{
+var Everforest = map[string]map[string]color.RGBA{
+	"default": {
+		"background":  hexToRGBA("#2b3339"),
+		"foreground":  hexToRGBA("#d3c6aa"),
+		"currentLine": hexToRGBA("#343f44"),
+		"comment":     hexToRGBA("#7a8478"),
+		"red":         hexToRGBA("#e67e80"),
+		"orange":      hexToRGBA("#e69875"),
+		"yellow":      hexToRGBA("#dbbc7f"),
+		"green":       hexToRGBA("#a7c080"),
+		"teal":        hexToRGBA("#83c092"),
+		"blue":        hexToRGBA("#7fbbb3"),
+		"purple":      hexToRGBA("#d699b6"),
+		"magenta":     hexToRGBA("#d699b6"),
+		"cyan":        hexToRGBA("#83c092"),
+		"white":       hexToRGBA("#d3c6aa"),
+		"black":       hexToRGBA("#2b3339"),
+		"gray":        hexToRGBA("#7a8478"),
+	},
 	"dark": {
 		"background":  hexToRGBA("#2b3339"),
 		"foreground":  hexToRGBA("#d3c6aa"),

@@ -2,7 +2,22 @@ package themes
 
 import "image/color"
 
-var RosePinePalettes = map[string]map[string]color.RGBA{
+var RosePine = map[string]map[string]color.RGBA{
+	"default": {
+		"base":      hexToRGBA("#191724"),
+		"surface":   hexToRGBA("#1f1d2e"),
+		"overlay":   hexToRGBA("#26233a"),
+		"muted":     hexToRGBA("#6e6a86"),
+		"subtle":    hexToRGBA("#908cae"),
+		"text":      hexToRGBA("#e0def4"),
+		"love":      hexToRGBA("#eb6f92"),
+		"gold":      hexToRGBA("#f6c177"),
+		"rose":      hexToRGBA("#ebbcba"),
+		"pine":      hexToRGBA("#31748f"),
+		"foam":      hexToRGBA("#9ccfd8"),
+		"iris":      hexToRGBA("#c4a7e7"),
+		"highlight": hexToRGBA("#424056"),
+	},
 	"main": {
 		"base":      hexToRGBA("#191724"),
 		"surface":   hexToRGBA("#1f1d2e"),

@@ -2,7 +2,18 @@ package themes
 
 import "image/color"
 
-var CatppuccinPalettes = map[string]map[string]color.RGBA{
+var Catppuccin = map[string]map[string]color.RGBA{
+	"default": {
+		"rosewater": hexToRGBA("#f5e0dc"), "flamingo": hexToRGBA("#f2cdcd"), "pink": hexToRGBA("#f5c2e7"),
+		"mauve": hexToRGBA("#cba6f7"), "red": hexToRGBA("#f38ba8"), "maroon": hexToRGBA("#eba0ac"),
+		"peach": hexToRGBA("#fab387"), "yellow": hexToRGBA("#f9e2af"), "green": hexToRGBA("#a6e3a1"),
+		"teal": hexToRGBA("#94e2d5"), "sky": hexToRGBA("#89dceb"), "sapphire": hexToRGBA("#74c7ec"),
+		"blue": hexToRGBA("#89b4fa"), "lavender": hexToRGBA("#b4befe"), "text": hexToRGBA("#cdd6f4"),
+		"subtext1": hexToRGBA("#bac2de"), "subtext0": hexToRGBA("#a6adc8"), "overlay2": hexToRGBA("#9399b2"),
+		"overlay1": hexToRGBA("#7f849c"), "overlay0": hexToRGBA("#6c7086"), "surface2": hexToRGBA("#585b70"),
+		"surface1": hexToRGBA("#45475a"), "surface0": hexToRGBA("#313244"), "base": hexToRGBA("#1e1e2e"),
+		"mantle": hexToRGBA("#181825"), "crust": hexToRGBA("#11111b"),
+	},
 	"mocha": {
 		"rosewater": hexToRGBA("#f5e0dc"), "flamingo": hexToRGBA("#f2cdcd"), "pink": hexToRGBA("#f5c2e7"),
 		"mauve": hexToRGBA("#cba6f7"), "red": hexToRGBA("#f38ba8"), "maroon": hexToRGBA("#eba0ac"),

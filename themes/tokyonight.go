@@ -2,7 +2,25 @@ package themes
 
 import "image/color"
 
-var TokyoNightPalettes = map[string]map[string]color.RGBA{
+var TokyoNight = map[string]map[string]color.RGBA{
+	"default": {
+		"background":  hexToRGBA("#1a1b26"),
+		"foreground":  hexToRGBA("#c0caf5"),
+		"currentLine": hexToRGBA("#292e42"),
+		"comment":     hexToRGBA("#565f89"),
+		"red":         hexToRGBA("#f7768e"),
+		"orange":      hexToRGBA("#ff9e64"),
+		"yellow":      hexToRGBA("#e0af68"),
+		"green":       hexToRGBA("#9ece6a"),
+		"teal":        hexToRGBA("#61afef"),
+		"blue":        hexToRGBA("#7aa2f7"),
+		"purple":      hexToRGBA("#bb9af7"),
+		"magenta":     hexToRGBA("#bb9af7"),
+		"cyan":        hexToRGBA("#7dcfff"),
+		"white":       hexToRGBA("#c0caf5"),
+		"black":       hexToRGBA("#1a1b26"),
+		"gray":        hexToRGBA("#565f89"),
+	},
 	"night": {
 		"background":  hexToRGBA("#1a1b26"),
 		"foreground":  hexToRGBA("#c0caf5"),

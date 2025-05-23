@@ -2,7 +2,7 @@ package themes
 
 import "image/color"
 
-var NordPalettes = map[string]map[string]color.RGBA{
+var Nord = map[string]map[string]color.RGBA{
 	"default": {
 		// Polar Night
 		"nord0": hexToRGBA("#2E3440"),

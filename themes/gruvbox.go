@@ -2,7 +2,27 @@ package themes
 
 import "image/color"
 
-var GruvboxPalettes = map[string]map[string]color.RGBA{
+var Gruvbox = map[string]map[string]color.RGBA{
+	"default": {
+		"bg0_h":  hexToRGBA("#1d2021"),
+		"bg0":    hexToRGBA("#282828"),
+		"bg1":    hexToRGBA("#3c3836"),
+		"bg2":    hexToRGBA("#504945"),
+		"bg3":    hexToRGBA("#665c54"),
+		"bg4":    hexToRGBA("#7c6f64"),
+		"fg_h":   hexToRGBA("#fbf1c7"),
+		"fg":     hexToRGBA("#ebdbb2"),
+		"fg_g":   hexToRGBA("#d4be98"),
+		"fg_s":   hexToRGBA("#a89984"),
+		"red":    hexToRGBA("#cc241d"),
+		"green":  hexToRGBA("#98971a"),
+		"yellow": hexToRGBA("#d79921"),
+		"blue":   hexToRGBA("#458588"),
+		"purple": hexToRGBA("#b16286"),
+		"aqua":   hexToRGBA("#689d6a"),
+		"orange": hexToRGBA("#d65d0e"),
+		"gray":   hexToRGBA("#a89984"),
+	},
 	"dark": {
 		"bg0_h":  hexToRGBA("#1d2021"),
 		"bg0":    hexToRGBA("#282828"),

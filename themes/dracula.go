@@ -2,7 +2,7 @@ package themes
 
 import "image/color"
 
-var DraculaPalettes = map[string]map[string]color.RGBA{
+var Dracula = map[string]map[string]color.RGBA{
 	"default": {
 		"background":   hexToRGBA("#282a36"),
 		"current-line": hexToRGBA("#44475a"),

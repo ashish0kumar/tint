@@ -2,7 +2,7 @@ package themes
 
 import "image/color"
 
-var MonochromePalettes = map[string]map[string]color.RGBA{
+var Monochrome = map[string]map[string]color.RGBA{
 	"default": {
 		"black":        hexToRGBA("#000000"),
 		"darkest-gray": hexToRGBA("#333333"),
