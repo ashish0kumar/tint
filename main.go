@@ -10,6 +10,7 @@ import (
 	"log"
 	"math"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"runtime"
 	"sort"
@@ -27,8 +28,8 @@ const (
 
 	// Default params for Shepard's Method
 	defaultLuminosity = 1.0
-	defaultNearest    = 26
-	defaultPower      = 4.0
+	defaultNearest    = 30
+	defaultPower      = 2.5
 
 	// ANSI escape codes for formatting
 	bold      = "\033[1m"
@@ -181,13 +182,6 @@ func NewProgressTracker(total int64) *ProgressTracker {
 	}
 }
 
-// renderProgressBar creates a string representation of the progress bar
-func renderProgressBar(percent float64, width int) string {
-	filled := int(percent / 100 * float64(width))
-	bar := strings.Repeat("█", filled) + strings.Repeat("░", width-filled)
-	return bar
-}
-
 // updateProgress increments the processed count and displays progress
 func (pt *ProgressTracker) updateProgress(increment int64) {
 	atomic.AddInt64(&pt.processed, increment)
@@ -213,9 +207,8 @@ func (pt *ProgressTracker) updateProgress(increment int64) {
 		estimatedTotal := time.Duration(float64(elapsed) / float64(processed) * float64(pt.total))
 		remaining := estimatedTotal - elapsed
 
-		bar := renderProgressBar(percentage, 50)
-		fmt.Printf("\rProgress: [%s] %.1f%% (%d/%d) Elapsed: %v ETA: %v",
-			bar, percentage, processed, pt.total, elapsed.Round(time.Second), remaining.Round(time.Second))
+		fmt.Printf("\rProgress: %.1f%% (%d/%d) Elapsed: %v ETA: %v",
+			percentage, processed, pt.total, elapsed.Round(time.Second), remaining.Round(time.Second))
 	}
 }
 
@@ -223,10 +216,8 @@ func (pt *ProgressTracker) updateProgress(increment int64) {
 func (pt *ProgressTracker) finishProgress() {
 	processed := atomic.LoadInt64(&pt.processed)
 	elapsed := time.Since(pt.startTime)
-	bar := renderProgressBar(100, 50)
-
-	fmt.Printf("\rComplete: [%s] 100.0%% (%d/%d) in %v\n",
-		bar, processed, pt.total, elapsed.Round(time.Millisecond))
+	fmt.Printf("\rComplete: 100.0%% (%d/%d) in %v\n",
+		processed, pt.total, elapsed.Round(time.Millisecond))
 }
 
 // processImageWithShepardsMethod applies Shepard's Method to each pixel of the image concurrently
@@ -472,6 +463,30 @@ func listThemes() {
 	fmt.Println()
 }
 
+// openFileInDefaultViewer attempts to open a file using the OS default viewer.
+func openFileInDefaultViewer(filePath string) {
+	var cmd *exec.Cmd
+
+	switch runtime.GOOS {
+	case "darwin": // macOS
+		cmd = exec.Command("open", filePath)
+	case "windows": // Windows
+		cmd = exec.Command("cmd", "/c", "start", filePath)
+	case "linux": // Linux
+		cmd = exec.Command("xdg-open", filePath)
+	default:
+		log.Printf("Unsupported operating system for automatic file opening: %s", runtime.GOOS)
+		return
+	}
+
+	err := cmd.Start()
+	if err != nil {
+		log.Printf("Failed to open file '%s' in default viewer: %v", filePath, err)
+	} else {
+		log.Printf("Opened '%s' in default viewer.", filePath)
+	}
+}
+
 func main() {
 	log.SetFlags(0)
 	themes.ValidateThemeData() // Validate theme data at startup
@@ -578,6 +593,9 @@ func main() {
 	}
 
 	log.Printf("Saved image: '%s'\n", outPath)
+
+	// --- Open output image in default viewer ---
+	openFileInDefaultViewer(outPath)
 }
 
 // setUsage prints the custom help message
