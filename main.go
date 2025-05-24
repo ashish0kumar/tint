@@ -19,7 +19,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"tint/themes"
+	"github.com/ashish0kumar/tint/themes"
 )
 
 const (
