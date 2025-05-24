@@ -5,17 +5,11 @@
 ## Features
 
 - **Theme-Based Recolorization:** Apply color palettes from themes like Catppuccin, Nord, Gruvbox, Everforest, and many more.
-
 - **Smooth Color Transitions:** `tint` utilizes Shepard's Method to produce natural-looking gradients and smooth blends, even in images with complex color variations.
-
 - **Luminosity Adjustment:** Easily fine-tune the brightness of your recolored images.
-
 - **Customizable Interpolation:** Control how `tint` blends colors by adjusting parameters like the number of nearest colors considered and the power of the weighting function.
-
 - **Image Format Support:** Works with JPEG and PNG image files.
-
 - **Efficient Processing:** Leverages Go's concurrency features to process images quickly, especially larger ones.
-
 - **Lightweight & Dependency-Free:** Built purely with Go's standard library, `tint` is a single, self-contained binary with no external dependencies.
 
 ## Available Themes
@@ -42,29 +36,14 @@
 go install github.com/ashish0kumar/tint@latest
 ```
 
-> Installs `tint` to your `$GOPATH/bin` or `$HOME/go/bin`
-
-Make sure the install path is in your `PATH`:
-
-```bash
-export PATH="$PATH:$(go env GOPATH)/bin"
-```
-
 ### Build from Source
+
+Clone the repo, build the project and move it inside your `$PATH`
 
 ```Bash
 git clone https://github.com/ashish0kumar/tint.git
 cd tint
 go build
-```
-
-> This generates a `tint` executable in the current directory.
-
-#### Add to PATH (Optional):
-
-For easy access, you can move the tint executable to a directory included in your system's `PATH` (eg `/usr/local/bin`).
-
-```Bash
 sudo mv tint /usr/local/bin/
 ```
 
