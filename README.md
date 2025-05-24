@@ -4,7 +4,7 @@
 
 ## Features
 
-- **Theme-Based Recolorization:** Apply color palettes from themes like Catppuccin, Nord, Gruvbox, Everforest, and many more.
+- **Theme-Based Recolorization:** Apply color palettes from themes like Catppuccin, Nord, Gruvbox, and many more.
 - **Smooth Color Transitions:** `tint` utilizes Shepard's Method to produce natural-looking gradients and smooth blends, even in images with complex color variations.
 - **Luminosity Adjustment:** Easily fine-tune the brightness of your recolored images.
 - **Customizable Interpolation:** Control how `tint` blends colors by adjusting parameters like the number of nearest colors considered and the power of the weighting function.
@@ -28,7 +28,7 @@
 
 ### Prerequisites:
 
-[Go 1.18+](golang.org/doc/install)
+[Go 1.18+](https://golang.org/doc/install)
 
 ### Install via `go install`
 
@@ -93,7 +93,7 @@ tint -i my_wallpaper.jpg -t nord
 - **Apply the Catppuccin Mocha theme and save to a specific path:**
 
 ```Bash
-tint -i original.png -t catppuccin-mocha -o catppuccin_output.png
+tint -i original.png -t catppuccin-mocha -o catppuccin_output.jpg
 ```
 
 - **Recolor an image with Gruvbox Dark, making it slightly brighter:**
@@ -166,7 +166,7 @@ I'd love to expand `tint`'s theme collection! If you have a favorite theme not y
 
     - Open `themes/registry.go`
     - Add your theme to the `AllThemeData` map.
-    
+
     ```Go
     var AllThemeData = map[string]map[string]map[string]color.RGBA{
         // ... existing themes
