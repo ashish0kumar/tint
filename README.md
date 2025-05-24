@@ -5,12 +5,12 @@
 ## Features
 
 - **Theme-Based Recolorization:** Apply color palettes from themes like Catppuccin, Nord, Gruvbox, and many more.
-- **Smooth Color Transitions:** `tint` utilizes Shepard's Method to produce natural-looking gradients and smooth blends, even in images with complex color variations.
+- **Smooth Color Transitions:** Uses Shepard's Method for natural gradients and blends in complex images.
 - **Luminosity Adjustment:** Easily fine-tune the brightness of your recolored images.
-- **Customizable Interpolation:** Control how `tint` blends colors by adjusting parameters like the number of nearest colors considered and the power of the weighting function.
+- **Customizable Interpolation:** Control blending by adjusting `nearest` colors and weighting function `power`.
 - **Image Format Support:** Works with JPEG and PNG image files.
-- **Efficient Processing:** Leverages Go's concurrency features to process images quickly, especially larger ones.
-- **Lightweight & Dependency-Free:** Built purely with Go's standard library, `tint` is a single, self-contained binary with no external dependencies.
+- **Efficient Processing:**  Leverages Go's concurrency for quick processing, specially for large images.
+- **Lightweight & Dependency-Free:** A single, self-contained Go binary with no external dependencies.
 
 ## Available Themes
 
@@ -166,6 +166,7 @@ I'd love to expand `tint`'s theme collection! If you have a favorite theme not y
 
     - Open `themes/registry.go`
     - Add your theme to the `AllThemeData` map.
+
 
     ```Go
     var AllThemeData = map[string]map[string]map[string]color.RGBA{
