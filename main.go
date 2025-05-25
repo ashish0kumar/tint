@@ -248,7 +248,7 @@ func processImageWithShepardsMethod(img image.Image, palette []color.Color, lumi
 	rowsPerWorker := bounds.Dy() / numWorkers
 	var wg sync.WaitGroup
 
-	for i := range numWorkers {
+	for i := 0; i < numWorkers; i++ {
 		wg.Add(1)
 		go func(workerID int) {
 			defer wg.Done()
