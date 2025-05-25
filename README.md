@@ -45,6 +45,7 @@ git clone https://github.com/ashish0kumar/tint.git
 cd tint
 go build
 sudo mv tint /usr/local/bin/
+tint -h
 ```
 
 ## Usage
@@ -74,7 +75,7 @@ Options:
         (Default: 30)
 
   --power <FLOAT>
-        Power for Shepard's Method (influences how quickly weights fall off).
+        Power for Shepards Method (influences how quickly weights fall off).
         (Default: 2.5)
 
   -l, --list-themes
