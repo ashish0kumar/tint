@@ -50,62 +50,38 @@ sudo mv tint /usr/local/bin/
 ## Usage
 
 ```Bash
-tint -i <IMAGE_PATH> -t <THEME-FLAVOR> [OPTIONS]
-```
+Usage: tint -i <IMAGE> -t <THEME-FLAVOR> [OPTIONS]
 
-### Required Arguments
+  -t, --theme <STRING>
+        Theme palette and optional flavor (required).
+        Use -l or --list-themes to see all available themes and flavors.
 
-- `-i, --image <PATH>`: Specifies the path to your input image, supports JPEG and PNG formats.
-- `-t, --theme <STRING>`: Defines the theme palette and its optional flavor to apply. Use `-l` or `--list-themes` to see all available options.
+  -i, --image <PATH>
+        Path to the input image (required). Supports JPEG, PNG.
 
-### Options
+Options:
 
-- `-o, --output <PATH>`: Sets the path for the output image.
-    - (Default: `<input_filename>_themed_<theme-flavor>.<input_format>`)
+  -o, --output <PATH>
+        Path for the output image.
+        (Default: <input_filename>_themed_<theme-flavor>.<input_format>)
 
-- `--luminosity <FLOAT>`: Adjusts the overall luminosity (brightness) of the image. A value of `0.8` makes it darker, `1.2` makes it brighter.
-    - (Default: `1.0`)
+  --luminosity <FLOAT>
+        Luminosity adjustment factor (e.g., 0.8 for darker, 1.2 for brighter).
+        (Default: 1.0)
 
-- `--nearest <COUNT>`: Determines the number of nearest palette colors considered for interpolation. A higher count can result in smoother blending.
-    - (Default: `26`)
+  --nearest <COUNT>
+        Number of nearest palette colors to consider for interpolation.
+        (Default: 30)
 
-- `--power <FLOAT>`: This parameter for Shepard's Method influences how quickly the weights of distant colors fall off. Higher values mean closer colors have a stronger influence.
-    - (Default: `4.0`)
+  --power <FLOAT>
+        Power for Shepard's Method (influences how quickly weights fall off).
+        (Default: 2.5)
 
-- `-l, --list-themes`: Displays all available themes and their flavors.
+  -l, --list-themes
+        List all available themes and their flavors.
 
-- `-h, --help`: Shows the command-line help message.
-
-## Examples
-
-- **List all available themes and flavors:**
-
-```Bash
-tint -l
-```
-
-- **Recolor an image with the Nord theme (default flavor):**
-
-```Bash
-tint -i my_wallpaper.jpg -t nord
-```
-
-- **Apply the Catppuccin Mocha theme and save to a specific path:**
-
-```Bash
-tint -i original.png -t catppuccin-mocha -o catppuccin_output.jpg
-```
-
-- **Recolor an image with Gruvbox Dark, making it slightly brighter:**
-
-```Bash
-tint -i photo.jpeg -t gruvbox-dark --luminosity 1.2
-```
-
-- **Use fewer nearest colors for a potentially more distinct mapping:**
-
-```Bash
-tint -i gradient_art.png -t rosepine --nearest 10
+  -h, --help
+        Print this help message.
 ```
 
 ## Development
@@ -185,37 +161,6 @@ I'd love to expand `tint`'s theme collection! If you have a favorite theme not y
     - Create a new branch for your changes.
     - Commit your new theme file and the changes to `themes/registry.go`
     - Open a Pull Request, explaining your new theme.
-
-## Deep Dive
-
-### What Makes `tint` Different
-
-There are many excellent image recoloring tools out there, and each has its unique strengths and approaches. For instance, tools like [`dipc`](https://github.com/doprz/dipc) and [`faerber`](https://github.com/nekowinston/faerber) often use direct color mapping strategies (often based on *DeltaE* color differences). These methods are very **effective for images with consistent, fewer colors**, providing quick and precise color reassignments to match a target palette.
-
-However, when an image features **complex gradients, subtle color mixtures, or a broad spectrum of colors**, direct mapping can sometimes result in a slightly "**patchy**" or less fluid appearance. This is where `tint` offers a distinct approach.
-
-`tint` employs **Shepard's Method (Inverse Distance Weighting)** for its color interpolation. Instead of simply replacing a pixel's color with the single closest match from the palette, `tint` considers **multiple nearest palette colors** and creates a **weighted average**. The closer a palette color is to the original, the more influence it has on the final pixel color. This blending technique provides:
-
-- **Smoother gradients:** Complex color transitions in your original image are gracefully transformed into the new palette without harsh banding.
-
-- **Natural appearance:** The resulting images maintain a more organic and less "digital" feel, making them well-suited for a variety of applications where the fidelity of smooth areas is important.
-
-Beyond its unique interpolation method, `tint` is also specifically designed to be **incredibly lightweight and self-contained**. Built purely with Go's standard library, it has **no external dependencies**. This focus on minimalism and efficiency complements other valuable recoloring utilities that might offer broader feature sets but come with more overhead.
-
-
-### How It Works
-
-`tint` implements **Shepard's Method (Inverse Distance Weighting)** for its core color transformation. Here's a simplified breakdown:
-
-- **Initial luminosity adjustment:** If specified, the pixel's color components are scaled to adjust its overall brightness.
-
-- **Nearest neighbor search:** For each pixel in the input image, `tint` identifies a specified number (`--nearest`) of the closest colors from the chosen theme's palette, based on their RGB distance.
-
-- **Weighted contribution:** Each identified palette color is assigned a weight. This weight is inversely proportional to its distance from the original pixel's color, raised to the `--power` factor. Colors closer to the original pixel's color receive higher weights.
-
-- **Blended output:** The final color for the pixel is then calculated as a weighted average of these nearest palette colors. This blending process is key to achieving smooth, continuous color transitions.
-
-- **Concurrent processing:** To optimize performance, particularly for large images, the image processing is parallelized. The image is divided into horizontal sections, which are then processed concurrently by separate goroutines.
 
 ## Acknowledgments
 
