@@ -347,6 +347,11 @@ func validateInputs(imagePath string, themeAndFlavor string, luminosity float64,
 			imagePath, float64(fileInfo.Size())/(1024*1024))
 	}
 
+	// Rewind the file before decoding
+	if _, err := file.Seek(0, io.SeekStart); err != nil {
+		return fmt.Errorf("failed to rewind file before decoding: %v", err)
+	}
+
 	// Try to decode image to check format and dimensions
 	img, format, err := image.Decode(file)
 	if err != nil {
@@ -386,6 +391,7 @@ func validateInputs(imagePath string, themeAndFlavor string, luminosity float64,
 	if power <= 0 {
 		return fmt.Errorf("power must be positive, got %.2f", power)
 	}
+
 	// log.Printf("Image validation passed: %dx%d pixels, %s format, %.2f MB",
 	// width, height, strings.ToUpper(format), float64(fileInfo.Size())/(1024*1024))
 
