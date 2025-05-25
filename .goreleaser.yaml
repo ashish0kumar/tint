@@ -1,5 +1,5 @@
 # .goreleaser.yaml
-version: 2
+version: 1
 
 project_name: tint
 
