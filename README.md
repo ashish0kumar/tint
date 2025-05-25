@@ -1,6 +1,10 @@
-# tint
+<h1 align="center">tint</h1>
 
 `tint` is a command-line tool to **recolor images using your favorite theme palettes**. It's designed for those who appreciate a cohesive visual aesthetic, letting you match your wallpapers or other images to your favorite themes.
+
+<div align="center">
+<img src="assets/showcase.png" width="80%" />
+</div>
 
 ## Features
 
