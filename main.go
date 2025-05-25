@@ -7,6 +7,7 @@ import (
 	"image/color"
 	"image/jpeg"
 	"image/png"
+	"io"
 	"log"
 	"math"
 	"os"
@@ -637,22 +638,22 @@ func setUsage() {
 	w := flag.CommandLine.Output()
 
 	// Usage
-	fmt.Fprintf(w, "\n%s%sUsage:%s %s -i <IMAGE> -t <THEME-FLAVOR> [OPTIONS]\n\n", bold, underline, reset, programName)
+	fmt.Fprintf(w, "\n%s%sUsage:%s %s --image <IMAGE> --theme <THEME-FLAVOR> [OPTIONS]\n\n", bold, underline, reset, programName)
 
 	// Theme
-	fmt.Fprintf(w, "  %s-t, --theme <STRING>%s\n", bold, reset)
+	fmt.Fprintf(w, "  %s--theme, -t <STRING>%s\n", bold, reset)
 	fmt.Fprintf(w, "\tTheme palette and optional flavor (required).\n")
-	fmt.Fprintf(w, "\tUse -l or --list-themes to see all available themes and flavors.\n\n")
+	fmt.Fprintf(w, "\tUse --list-themes to see all available themes and flavors.\n\n")
 
 	// Image
-	fmt.Fprintf(w, "  %s-i, --image <PATH>%s\n", bold, reset)
-	fmt.Fprintf(w, "\tPath to the input image (required). Supports JPEG, PNG.\n\n")
+	fmt.Fprintf(w, "  %s--image, -i <PATH>%s\n", bold, reset)
+	fmt.Fprintf(w, "\tPath to the input image (required). Supports JPEG, PNG formats.\n\n")
 
 	// Options heading
 	fmt.Fprintf(w, "%s%sOptions:%s\n\n", bold, underline, reset)
 
 	// Output
-	fmt.Fprintf(w, "  %s-o, --output <PATH>%s\n", bold, reset)
+	fmt.Fprintf(w, "  %s--output, -o <PATH>%s\n", bold, reset)
 	fmt.Fprintf(w, "\tPath for the output image.\n")
 	fmt.Fprintf(w, "\t(Default: <input_filename>_themed_<theme-flavor>.<input_format>)\n\n")
 
@@ -672,10 +673,10 @@ func setUsage() {
 	fmt.Fprintf(w, "\t(Default: %.1f)\n\n", defaultPower)
 
 	// List Themes
-	fmt.Fprintf(w, "  %s-l, --list-themes%s\n", bold, reset)
+	fmt.Fprintf(w, "  %s--list-themes, -l%s\n", bold, reset)
 	fmt.Fprintf(w, "\tList all available themes and their flavors.\n\n")
 
 	// Help
-	fmt.Fprintf(w, "  %s-h, --help%s\n", bold, reset)
+	fmt.Fprintf(w, "  %s--help, -h%s\n", bold, reset)
 	fmt.Fprintf(w, "\tPrint this help message.\n")
 }
