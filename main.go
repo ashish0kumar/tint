@@ -221,76 +221,103 @@ func (pt *ProgressTracker) finishProgress() {
 }
 
 // processImageWithShepardsMethod applies Shepard's Method to each pixel of the image concurrently
-func processImageWithShepardsMethod(img image.Image, palette []color.Color, luminosity float64, nearest int, power float64) *image.RGBA {
+func processImageWithShepardsMethod(
+	img image.Image,
+	palette []color.Color,
+	luminosity float64,
+	nearest int,
+	power float64,
+) *image.RGBA {
 	bounds := img.Bounds()
-	newImg := image.NewRGBA(bounds)
+	width, height := bounds.Dx(), bounds.Dy()
 
-	// Pre convert the palette to RGBA once
+	// Pre-convert palette colors to RGBA once
 	paletteRGBAs := make([]color.RGBA, len(palette))
 	for i, c := range palette {
 		paletteRGBAs[i] = toRGBA(c)
 	}
 
 	// Initialize progress tracker
-	totalPixels := int64(bounds.Dx() * bounds.Dy())
+	totalPixels := int64(width * height)
 	progress := NewProgressTracker(totalPixels)
 
-	// Implement concurrency
-	numWorkers := runtime.GOMAXPROCS(0)
-	if numWorkers == 0 {
-		numWorkers = 1
-	}
-	if numWorkers > bounds.Dy() {
-		numWorkers = bounds.Dy() // Dont create more workers than rows
+	// Determine number of workers based on CPU cores
+	numWorkers := runtime.NumCPU()
+	if numWorkers > height {
+		numWorkers = height // no more workers than rows
 	}
 
-	// Divide the image into horizontal chunks for workers
-	rowsPerWorker := bounds.Dy() / numWorkers
+	// Calculate rows per worker with ceiling division
+	rowsPerWorker := (height + numWorkers - 1) / numWorkers
+
+	// Prepare a slice to hold partial images from workers
+	partialImages := make([]*image.RGBA, numWorkers)
+
 	var wg sync.WaitGroup
-
-	for i := 0; i < numWorkers; i++ {
+	for workerID := 0; workerID < numWorkers; workerID++ {
 		wg.Add(1)
-		go func(workerID int) {
+		go func(id int) {
 			defer wg.Done()
 
-			startY := bounds.Min.Y + workerID*rowsPerWorker
+			// Determine row range for this worker
+			startY := bounds.Min.Y + id*rowsPerWorker
 			endY := startY + rowsPerWorker
-			if workerID == numWorkers-1 { // Last worker takes remaining rows
+			if endY > bounds.Max.Y {
 				endY = bounds.Max.Y
 			}
+
+			// Create partial image buffer for this worker
+			partialImg := image.NewRGBA(image.Rect(bounds.Min.X, startY, bounds.Max.X, endY))
 
 			pixelsProcessed := int64(0)
 			for y := startY; y < endY; y++ {
 				for x := bounds.Min.X; x < bounds.Max.X; x++ {
 					originalColor := img.At(x, y)
-					originalRGBA := toRGBA(originalColor) // Convert to RGBA once per pixel
-					a := originalRGBA.A
+					originalRGBA := toRGBA(originalColor)
 
-					if a == 0 { // If the pixel is fully transparent, keep it that way
-						newImg.Set(x, y, color.Transparent)
-					} else {
-						// Adjust luminosity and apply Shepard's Method
-						adjustedColor := applyLuminosity(originalRGBA, luminosity)
-						finalColor := shepardsMethodColor(adjustedColor, paletteRGBAs, nearest, power)
-						newImg.Set(x, y, finalColor)
+					if originalRGBA.A == 0 {
+						partialImg.Set(x, y, color.Transparent)
+						continue
 					}
+
+					// Adjust luminosity and apply Shepard's method
+					adjustedColor := applyLuminosity(originalRGBA, luminosity)
+					finalColor := shepardsMethodColor(adjustedColor, paletteRGBAs, nearest, power)
+					partialImg.Set(x, y, finalColor)
+
 					pixelsProcessed++
 				}
-				// Update progress every row to avoid too frequent updates
-				if y%10 == 0 || y == endY-1 {
+
+				// Update progress every 10 rows or at last row
+				if (y-startY)%10 == 0 || y == endY-1 {
 					progress.updateProgress(pixelsProcessed)
 					pixelsProcessed = 0
 				}
 			}
-			// Update remaining pixels
 			if pixelsProcessed > 0 {
 				progress.updateProgress(pixelsProcessed)
 			}
-		}(i)
+
+			partialImages[id] = partialImg
+		}(workerID)
 	}
 
-	wg.Wait() // Wait for all to complete
+	wg.Wait()
 	progress.finishProgress()
+
+	// Merge partial images into final image
+	newImg := image.NewRGBA(bounds)
+	for _, pImg := range partialImages {
+		if pImg == nil {
+			continue
+		}
+		for y := pImg.Bounds().Min.Y; y < pImg.Bounds().Max.Y; y++ {
+			for x := pImg.Bounds().Min.X; x < pImg.Bounds().Max.X; x++ {
+				newImg.Set(x, y, pImg.At(x, y))
+			}
+		}
+	}
+
 	return newImg
 }
 
