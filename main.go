@@ -220,6 +220,7 @@ func (pt *ProgressTracker) finishProgress() {
 		processed, pt.total, elapsed.Round(time.Millisecond))
 }
 
+// processImageWithShepardsMethod applies Shepard's Method to each pixel of the image concurrently
 func processImageWithShepardsMethod(
 	img image.Image,
 	palette []color.Color,
