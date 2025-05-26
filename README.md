@@ -13,6 +13,7 @@
 </p>
 </div>
 
+<br>
 <div align="center">
 <img src="assets/example.png" width="80%" />
 </div>
@@ -108,6 +109,13 @@ Options:
   --help, -h
         Print this help message.
 ```
+
+> [!WARNING]
+> **Memory Note**
+>
+> Processing large images (e.g., 50MP, ~7071x7071) can use significant RAM. <br>
+> A 50MP image in RGBA format (4 bytes/pixel) may consume over 500 MiB of memory. <br>
+> Ensure your system has enough free memory before running.
 
 ## Examples
 
@@ -209,6 +217,10 @@ I'd love to expand `tint`'s theme collection! If you have a favorite theme not y
     - Commit your new theme file and the changes to `themes/registry.go`
     - Open a Pull Request, explaining your new theme.
 
+## Contributing
+
+Contributions are always welcome! If you have ideas, bug reports, or want to submit code, please feel free to open an issue or a pull request.
+
 ## Acknowledgments
 
 This project has been inspired by the work of others in the open-source community:
@@ -218,10 +230,6 @@ This project has been inspired by the work of others in the open-source communit
 - [nekowinston/faerber](https://github.com/nekowinston/faerber)
 - [lighttigerXIV/catppuccinifier](https://github.com/doprz/dipc)
 - [doprz/dipc](https://github.com/doprz/dipc)
-
-## Contributing
-
-Contributions are always welcome! If you have ideas, bug reports, or want to submit code, please feel free to open an issue or a pull request.
 
 ## License
 

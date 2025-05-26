@@ -25,7 +25,7 @@ import (
 
 const (
 	MaxImageDimension = 10000    // Maximum allowed width or height of the image
-	MaxImagePixels    = 50000000 // Maximum allowed number of pixels in the image (7001x7001)
+	MaxImagePixels    = 50000000 // Maximum allowed number of pixels in the image (~7071x7071)
 
 	// Default params for Shepard's Method
 	defaultLuminosity = 1.0
@@ -680,5 +680,11 @@ func setUsage() {
 
 	// Help
 	fmt.Fprintf(w, "  %s--help, -h%s\n", bold, reset)
-	fmt.Fprintf(w, "\tPrint this help message.\n")
+	fmt.Fprintf(w, "\tPrint this help message.\n\n")
+
+	// Memory Considerations
+	fmt.Fprintf(w, "%s%sMemory Note:%s\n\n", bold, underline, reset)
+	fmt.Fprintf(w, "  Processing large images (e.g., %dMP, ~%dx%d) can use significant RAM.\n", MaxImagePixels/1000000, int(math.Sqrt(float64(MaxImagePixels))), int(math.Sqrt(float64(MaxImagePixels))))
+	fmt.Fprintf(w, "  A %dMP image in RGBA format (4 bytes/pixel) may consume %sover 500 MiB of memory%s.\n", MaxImagePixels/1000000, bold, reset)
+	fmt.Fprintf(w, "  Ensure your system has enough free memory before running.\n\n")
 }
