@@ -1,35 +1,52 @@
-<h1 align="center">tint</h1>
+<h1 align="center">🎨 tint</h1>
 
-`tint` is a command-line tool to **recolor images using your favorite theme palettes**. It's designed for those who appreciate a cohesive visual aesthetic, letting you match your wallpapers or other images to your favorite themes.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" />
+</p>
+
+<div align="center">
+<p>
+<a href="https://github.com/ashish0kumar/tint/stargazers"><img src="https://img.shields.io/github/stars/ashish0kumar/tint?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=C9CBFF&labelColor=302D41" alt="stars"><a>&nbsp;&nbsp;
+<a href="https://github.com/ashish0kumar/tint/"><img src="https://img.shields.io/github/repo-size/ashish0kumar/tint?style=for-the-badge&logo=hyprland&logoColor=f9e2af&label=Size&labelColor=302D41&color=f9e2af" alt="REPO SIZE"></a>&nbsp;&nbsp;
+<a href="https://github.com/ashish0kumar/tint/commits/main/"><img src="https://img.shields.io/github/last-commit/ashish0kumar/tint?style=for-the-badge&logo=github&logoColor=eba0ac&label=Last%20Commit&labelColor=302D41&color=eba0ac" alt="Last Commit"></a>&nbsp;&nbsp;
+<a href="https://github.com/ashish0kumar/tint/LICENSE"><img src="https://img.shields.io/github/license/ashish0kumar/tint?style=for-the-badge&logo=&color=CBA6F7&logoColor=CBA6F7&labelColor=302D41" alt="LICENSE"></a>&nbsp;&nbsp;
+</p>
+</div>
+
+<div align="center">
+<img src="assets/example.png" width="80%" />
+</div>
 
 <br>
-<div align="center">
-<img src="assets/showcase.png" width="80%" />
-</div>
+
+`tint` is a command-line tool to **recolor images using your favorite theme palettes**. It's designed for those who appreciate a cohesive visual aesthetic, letting you match your wallpapers or other images to your favorite themes.
 
 <hr>
 
 ## Features
 
-- **Theme-Based Recolorization:** Apply color palettes from themes like Catppuccin, Nord, Gruvbox, and many more.
+- **Theme-Based Recoloring:** Apply color palettes from themes like Catppuccin, Nord, Gruvbox, and many more.
 - **Smooth Color Transitions:** Uses Shepard's Method for natural gradients and blends in complex images.
 - **Luminosity Adjustment:** Easily fine-tune the brightness of your recolored images.
 - **Customizable Interpolation:** Control blending by adjusting `nearest` colors and weighting function `power`.
 - **Image Format Support:** Works with JPEG and PNG image files.
-- **Efficient Processing:**  Leverages Go's concurrency for quick processing, specially for large images.
+- **Efficient Processing:**  Leverages Go's concurrency for quick processing, especially for large images.
 - **Lightweight & Dependency-Free:** A single, self-contained Go binary with no external dependencies.
 
 ## Available Themes
 
-- Catppuccin
-- Dracula
-- Everforest
-- Gruvbox
-- Monochrome
-- Nord
-- RosePine
-- Solarized
-- Tokyonight
+| Theme       | Flavors                                  |
+|-------------|-------------------------------------------|
+| Catppuccin  | frappe, latte, macchiato, mocha           |
+| Dracula     | default                                   |
+| Everforest  | dark, light                               |
+| Gruvbox     | dark, light                               |
+| Monochrome  | default                                   |
+| Nord        | default                                   |
+| RosePine    | dawn, main, moon                          |
+| Solarized   | dark, light                               |
+| Tokyonight  | light, night, storm                       |
+
 
 ## Installation
 
@@ -47,7 +64,7 @@ go install github.com/ashish0kumar/tint@latest
 
 Clone the repo, build the project and move it inside your `$PATH`
 
-```Bash
+```bash
 git clone https://github.com/ashish0kumar/tint.git
 cd tint
 go build
@@ -57,19 +74,19 @@ tint -h
 
 ## Usage
 
-```Bash
-Usage: tint -i <IMAGE> -t <THEME-FLAVOR> [OPTIONS]
+```bash
+Usage: tint --image <IMAGE> --theme <THEME-FLAVOR> [OPTIONS]
 
-  -t, --theme <STRING>
+  --theme, -t <STRING>
         Theme palette and optional flavor (required).
-        Use -l or --list-themes to see all available themes and flavors.
+        Use --list-themes to see all available themes and flavors.
 
-  -i, --image <PATH>
-        Path to the input image (required). Supports JPEG, PNG.
+  --image, -i <PATH>
+        Path to the input image (required). Supports JPEG, PNG formats.
 
 Options:
 
-  -o, --output <PATH>
+  --output, -o <PATH>
         Path for the output image.
         (Default: <input_filename>_themed_<theme-flavor>.<input_format>)
 
@@ -85,11 +102,33 @@ Options:
         Power for Shepards Method (influences how quickly weights fall off).
         (Default: 2.5)
 
-  -l, --list-themes
+  --list-themes, -l
         List all available themes and their flavors.
 
-  -h, --help
+  --help, -h
         Print this help message.
+```
+
+## Examples
+
+```bash
+# Recolor an image using the Catppuccin theme (default flavor)
+tint --image input.jpg --theme catppuccin
+
+# Use the Catppuccin theme's "latte" flavor and specify an output filename
+tint -i image.png -t catppuccin-latte -o output_light.png
+
+# Apply the Gruvbox theme and make the image slightly brighter
+tint -i pic.jpeg -t gruvbox -o bright_pic.jpg --luminosity 1.2
+
+# Recolor using Everforest theme with a smoother gradient (more nearest colors)
+tint -i bg.png -t everforest --nearest 50
+
+# Use Tokyonight theme and tweak the interpolation strength (Shepard's Method)
+tint -i wallpaper.png -t tokyonight --power 3.5
+
+# List all available themes and flavors
+tint --list-themes
 ```
 
 ## Development
@@ -187,3 +226,9 @@ Contributions are always welcome! If you have ideas, bug reports, or want to sub
 ## License
 
 [MIT License](LICENSE)
+
+<br><br>
+
+<p align="center">
+	<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" />
+</p>
