@@ -478,7 +478,9 @@ func generateOutputPath(inputPath string, themeAndFlavor string, inputFormat str
 
 // listThemes prints all available themes and their flavors
 func listThemes() {
-	fmt.Printf("\n%s%sUsage:%s tint -i <IMAGE> -t <THEME-FLAVOR> [OPTIONS]\n\n", bold, underline, reset)
+	programName := filepath.Base(os.Args[0])
+
+	fmt.Printf("\n%s%sUsage:%s %s --image <IMAGE> --theme <THEME-FLAVOR> [OPTIONS]\n\n", bold, underline, reset, programName)
 	fmt.Printf("%s%sAvailable Themes & Flavors:%s\n", bold, underline, reset)
 
 	themeNames := themes.GetAvailableThemeNames()
