@@ -36,6 +36,8 @@ const (
 	bold      = "\033[1m"
 	underline = "\033[4m"
 	reset     = "\033[0m"
+
+	version = "0.1.1"
 )
 
 // toRGBA converts any color.Color to color.RGBA
@@ -536,6 +538,7 @@ func main() {
 	var nearest int
 	var power float64
 	var listThemesFlag bool
+	var showVersion bool
 
 	// --- Define and parse flags ---
 
@@ -551,6 +554,9 @@ func main() {
 	flag.BoolVar(&listThemesFlag, "list-themes", false, "List all available themes and their flavors")
 	flag.BoolVar(&listThemesFlag, "l", false, "Shorthand for -list-themes")
 
+	flag.BoolVar(&showVersion, "version", false, "Print the program version and exit")
+	flag.BoolVar(&showVersion, "v", false, "Shorthand for -version")
+
 	// Params specific to Shepard's Method
 	flag.Float64Var(&luminosity, "luminosity", defaultLuminosity, "Luminosity adjustment factor (e.g., 0.8 for darker, 1.2 for brighter)")
 	flag.IntVar(&nearest, "nearest", defaultNearest, "Number of nearest palette colors to consider for interpolation")
@@ -560,8 +566,13 @@ func main() {
 
 	flag.Parse()
 
-	// --- Handle listThemesFlag ---
+	// --- Handle version flag ---
+	if showVersion {
+		fmt.Printf("%s version %s\n", filepath.Base(os.Args[0]), version)
+		os.Exit(0)
+	}
 
+	// --- Handle listThemesFlag ---
 	if listThemesFlag {
 		listThemes()
 		os.Exit(0)
@@ -602,6 +613,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to load image: %v", err)
 	}
+
 	// log.Printf("Image loaded successfully. Format: %s", format)
 
 	// --- Process image with shepard's method ---
@@ -677,6 +689,10 @@ func setUsage() {
 	// List Themes
 	fmt.Fprintf(w, "  %s--list-themes, -l%s\n", bold, reset)
 	fmt.Fprintf(w, "\tList all available themes and their flavors.\n\n")
+
+	// Version
+	fmt.Fprintf(w, "  %s--version, -v%s\n", bold, reset)
+	fmt.Fprintf(w, "\tPrint the program version and exit.\n\n")
 
 	// Help
 	fmt.Fprintf(w, "  %s--help, -h%s\n", bold, reset)

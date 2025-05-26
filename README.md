@@ -55,6 +55,12 @@
 
 [Go 1.18+](https://golang.org/doc/install)
 
+### Arch Linux AUR
+
+```bash
+yay -S tint
+```
+
 ### Install via `go install`
 
 ```bash
@@ -66,7 +72,7 @@ go install github.com/ashish0kumar/tint@latest
 Clone the repo, build the project and move it inside your `$PATH`
 
 ```bash
-git clone https://github.com/ashish0kumar/tint.git
+git clone --depth=1 https://github.com/ashish0kumar/tint
 cd tint
 go build
 sudo mv tint /usr/local/bin/
@@ -75,7 +81,7 @@ tint -h
 
 ## Usage
 
-```bash
+```yaml
 Usage: tint --image <IMAGE> --theme <THEME-FLAVOR> [OPTIONS]
 
   --theme, -t <STRING>
@@ -105,6 +111,9 @@ Options:
 
   --list-themes, -l
         List all available themes and their flavors.
+
+  --vesion, -v
+        Check the version.
 
   --help, -h
         Print this help message.
