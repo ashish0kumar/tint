@@ -43,6 +43,7 @@
 | Dracula     | default                                        |
 | Everforest  | dark, light                                    |
 | Gruvbox     | dark, light                                    |
+| Kanagawa    | dragon, lotus                                  |
 | MonokaiPro  | classic, spectrum, octagon, machine, ristretto |
 | Monochrome  | default                                        |
 | NightOwl    | default                                        |
@@ -50,7 +51,6 @@
 | RosePine    | dawn, main, moon                               |
 | Solarized   | dark, light                                    |
 | Tokyonight  | light, night, storm                            |
-
 
 ## Installation
 
