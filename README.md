@@ -36,12 +36,13 @@
 
 ## Available Themes
 
-| Theme       | Flavors                                  |
+| Theme       | Flavors                                   |
 |-------------|-------------------------------------------|
 | Catppuccin  | frappe, latte, macchiato, mocha           |
 | Dracula     | default                                   |
 | Everforest  | dark, light                               |
 | Gruvbox     | dark, light                               |
+| Kanagawa    | dragon, lotus                             |
 | Monochrome  | default                                   |
 | Nord        | default                                   |
 | RosePine    | dawn, main, moon                          |
