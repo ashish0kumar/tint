@@ -15,7 +15,7 @@
 
 <br>
 <div align="center">
-<img src="assets/example.png" width="80%" />
+<img src="assets/example.webp" width="80%" />
 </div>
 
 <br>
