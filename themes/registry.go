@@ -104,6 +104,9 @@ var AllThemeData = map[string]map[string]map[string]color.RGBA{
 	"dracula":    Dracula,
 	"solarized":  Solarized,
 	"monochrome": Monochrome,
+	"ayu":        Ayu,
+	"monokaipro": MonokaiPro,
+	"nightowl":   NightOwl,
 }
 
 // GetPalette retrieves a palette by theme name and optional flavor
