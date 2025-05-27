@@ -7,7 +7,6 @@ import (
 	"image/color"
 	"image/jpeg"
 	"image/png"
-	"io"
 	"log"
 	"math"
 	"os"
@@ -36,6 +35,8 @@ const (
 	bold      = "\033[1m"
 	underline = "\033[4m"
 	reset     = "\033[0m"
+
+	version = "0.1.1"
 )
 
 // toRGBA converts any color.Color to color.RGBA
@@ -322,94 +323,60 @@ func processImageWithShepardsMethod(
 	return newImg
 }
 
-// validateInputs performs extensive input validation
-func validateInputs(imagePath string, themeAndFlavor string, luminosity float64, nearest int, power float64) error {
-	// Check if image file exists
-	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
-		return fmt.Errorf("image file '%s' does not exist", imagePath)
-	}
-
-	// Check file permissions
+// decodeAndValidateImage opens, decodes, and validates the image.
+func decodeAndValidateImage(imagePath string, themeAndFlavor string, luminosity float64, nearest int, power float64) (image.Image, string, error) {
+	// Open file
 	file, err := os.Open(imagePath)
 	if err != nil {
-		return fmt.Errorf("cannot open image file '%s': %v", imagePath, err)
+		return nil, "", fmt.Errorf("cannot open image file '%s': %v", imagePath, err)
 	}
 	defer file.Close()
 
-	// Get file info for size validation
+	// Get file info
 	fileInfo, err := file.Stat()
 	if err != nil {
-		return fmt.Errorf("cannot get file info for '%s': %v", imagePath, err)
+		return nil, "", fmt.Errorf("cannot get file info for '%s': %v", imagePath, err)
 	}
 
 	// Check file size
 	if fileInfo.Size() > 100*1024*1024 {
-		return fmt.Errorf("image file '%s' is too large (%.2f MB). Maximum size is 100 MB",
+		return nil, "", fmt.Errorf("image file '%s' is too large (%.2f MB). Maximum size is 100 MB",
 			imagePath, float64(fileInfo.Size())/(1024*1024))
 	}
 
-	// Rewind the file before decoding
-	if _, err := file.Seek(0, io.SeekStart); err != nil {
-		return fmt.Errorf("failed to rewind file before decoding: %v", err)
-	}
-
-	// Try to decode image to check format and dimensions
+	// Decode image
 	img, format, err := image.Decode(file)
 	if err != nil {
-		return fmt.Errorf("cannot decode image '%s': %v. Make sure it's a valid JPEG or PNG file", imagePath, err)
+		return nil, "", fmt.Errorf("cannot decode image '%s': %v. Must be a valid JPEG or PNG", imagePath, err)
 	}
 	if format != "jpeg" && format != "png" {
-		return fmt.Errorf("unsupported image format '%s'. Only JPEG and PNG are supported", format)
+		return nil, "", fmt.Errorf("unsupported image format '%s'. Only JPEG and PNG are supported", format)
 	}
 
-	// Check image dimensions
+	// Check dimensions
 	bounds := img.Bounds()
-	width := bounds.Dx()
-	height := bounds.Dy()
-	totalPixels := width * height
-
+	width, height := bounds.Dx(), bounds.Dy()
 	if width > MaxImageDimension || height > MaxImageDimension {
-		return fmt.Errorf("image dimensions too large (%dx%d). Maximum dimension is %d pixels",
-			width, height, MaxImageDimension)
+		return nil, "", fmt.Errorf("image dimensions too large (%dx%d). Max is %d", width, height, MaxImageDimension)
 	}
-	if totalPixels > MaxImagePixels {
-		return fmt.Errorf("image has too many pixels (%d). Maximum is %d pixels",
-			totalPixels, MaxImagePixels)
+	if width*height > MaxImagePixels {
+		return nil, "", fmt.Errorf("image has too many pixels (%d). Max is %d", width*height, MaxImagePixels)
 	}
 
-	// Validate theme exists
+	// Validate theme
 	if _, err := themes.GetPalette(themeAndFlavor); err != nil {
-		return fmt.Errorf("theme validation failed: %v", err)
+		return nil, "", fmt.Errorf("theme validation failed: %v", err)
 	}
 
-	// Validate params
+	// Validate parameters
 	if luminosity <= 0 {
-		return fmt.Errorf("luminosity must be positive, got %.2f", luminosity)
+		return nil, "", fmt.Errorf("luminosity must be positive, got %.2f", luminosity)
 	}
 	if nearest < 1 {
-		return fmt.Errorf("nearest colors count must be at least 1, got %d", nearest)
+		return nil, "", fmt.Errorf("nearest colors count must be at least 1, got %d", nearest)
 	}
 	if power <= 0 {
-		return fmt.Errorf("power must be positive, got %.2f", power)
-	}
-
-	// log.Printf("Image validation passed: %dx%d pixels, %s format, %.2f MB",
-	// width, height, strings.ToUpper(format), float64(fileInfo.Size())/(1024*1024))
-
-	return nil
-}
-
-// loadImage loads and returns the image
-func loadImage(imagePath string) (image.Image, string, error) {
-	file, err := os.Open(imagePath)
-	if err != nil {
-		return nil, "", fmt.Errorf("error opening image '%s': %v", imagePath, err)
-	}
-	defer file.Close()
-
-	img, format, err := image.Decode(file)
-	if err != nil {
-		return nil, "", fmt.Errorf("error decoding image '%s': %v", imagePath, err)
+		return nil, "", fmt.Errorf("power must be positive, got %.2f", power)
 	}
 
 	return img, format, nil
@@ -536,6 +503,7 @@ func main() {
 	var nearest int
 	var power float64
 	var listThemesFlag bool
+	var showVersion bool
 
 	// --- Define and parse flags ---
 
@@ -551,6 +519,9 @@ func main() {
 	flag.BoolVar(&listThemesFlag, "list-themes", false, "List all available themes and their flavors")
 	flag.BoolVar(&listThemesFlag, "l", false, "Shorthand for -list-themes")
 
+	flag.BoolVar(&showVersion, "version", false, "Print the program version and exit")
+	flag.BoolVar(&showVersion, "v", false, "Shorthand for -version")
+
 	// Params specific to Shepard's Method
 	flag.Float64Var(&luminosity, "luminosity", defaultLuminosity, "Luminosity adjustment factor (e.g., 0.8 for darker, 1.2 for brighter)")
 	flag.IntVar(&nearest, "nearest", defaultNearest, "Number of nearest palette colors to consider for interpolation")
@@ -560,8 +531,13 @@ func main() {
 
 	flag.Parse()
 
-	// --- Handle listThemesFlag ---
+	// --- Handle version flag ---
+	if showVersion {
+		fmt.Printf("%s version %s\n", filepath.Base(os.Args[0]), version)
+		os.Exit(0)
+	}
 
+	// --- Handle listThemesFlag ---
 	if listThemesFlag {
 		listThemes()
 		os.Exit(0)
@@ -581,33 +557,22 @@ func main() {
 		os.Exit(1)
 	}
 
-	// --- Input validation ---
-
-	// log.Println("Validating inputs...")
-	if err := validateInputs(imagePath, themeAndFlavor, luminosity, nearest, power); err != nil {
+	// --- Decode and validate image ---
+	img, format, err := decodeAndValidateImage(imagePath, themeAndFlavor, luminosity, nearest, power)
+	if err != nil {
 		log.Fatalf("Validation failed: %v", err)
 	}
 
 	// --- Get palette ---
-
 	paletteColors, err := themes.GetPalette(themeAndFlavor)
 	if err != nil {
 		log.Fatalf("Error getting palette: %v", err)
 	}
 
 	// --- Load image ---
-
-	// log.Printf("Loading image '%s'...", imagePath)
-	img, format, err := loadImage(imagePath)
-	if err != nil {
-		log.Fatalf("Failed to load image: %v", err)
-	}
-	// log.Printf("Image loaded successfully. Format: %s", format)
+	// (Already loaded above)
 
 	// --- Process image with shepard's method ---
-
-	// log.Printf("Processing image with Shepard's Method (theme: %s, nearest: %d, power: %.1f)", themeAndFlavor, nearest, power)
-
 	log.Printf("Theme: %s", strings.ToLower(themeAndFlavor))
 	log.Printf("Shepard's Method: nearest = %d, power = %.1f, luminosity = %.1f", nearest, power, luminosity)
 	log.Printf("Processing: '%s'", imagePath)
@@ -615,15 +580,12 @@ func main() {
 	processedImg := processImageWithShepardsMethod(img, paletteColors, luminosity, nearest, power)
 
 	// --- Determine output path ---
-
 	outPath := outputPath
 	if outPath == "" {
 		outPath = generateOutputPath(imagePath, themeAndFlavor, format)
 	}
 
 	// --- Save image ---
-
-	// log.Printf("Saving processed image to '%s'...", outPath)
 	if err := saveImage(processedImg, outPath, format); err != nil {
 		log.Fatalf("Failed to save image: %v", err)
 	}
@@ -677,6 +639,10 @@ func setUsage() {
 	// List Themes
 	fmt.Fprintf(w, "  %s--list-themes, -l%s\n", bold, reset)
 	fmt.Fprintf(w, "\tList all available themes and their flavors.\n\n")
+
+	// Version
+	fmt.Fprintf(w, "  %s--version, -v%s\n", bold, reset)
+	fmt.Fprintf(w, "\tPrint the program version and exit.\n\n")
 
 	// Help
 	fmt.Fprintf(w, "  %s--help, -h%s\n", bold, reset)
