@@ -36,19 +36,21 @@
 
 ## Available Themes
 
-| Theme       | Flavors                                   |
-|-------------|-------------------------------------------|
-| Catppuccin  | frappe, latte, macchiato, mocha           |
-| Dracula     | default                                   |
-| Everforest  | dark, light                               |
-| Gruvbox     | dark, light                               |
-| Kanagawa    | dragon, lotus                             |
-| Monochrome  | default                                   |
-| Nord        | default                                   |
-| RosePine    | dawn, main, moon                          |
-| Solarized   | dark, light                               |
-| Tokyonight  | light, night, storm                       |
-
+| Theme       | Flavors                                        |
+|-------------|------------------------------------------------|
+| Ayu         | light, mirage, dark                            |
+| Catppuccin  | frappe, latte, macchiato, mocha                |
+| Dracula     | default                                        |
+| Everforest  | dark, light                                    |
+| Gruvbox     | dark, light                                    |
+| Kanagawa    | dragon, lotus                                  |
+| MonokaiPro  | classic, spectrum, octagon, machine, ristretto |
+| Monochrome  | default                                        |
+| NightOwl    | default                                        |
+| Nord        | default                                        |
+| RosePine    | dawn, main, moon                               |
+| Solarized   | dark, light                                    |
+| Tokyonight  | light, night, storm                            |
 
 ## Installation
 
