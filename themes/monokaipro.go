@@ -3,6 +3,14 @@ package themes
 import "image/color"
 
 var MonokaiPro = map[string]map[string]color.RGBA{
+	"default": {
+		"background": hexToRGBA("#2d2a2e"), "foreground": hexToRGBA("#fcfcfa"),
+		"comment": hexToRGBA("#727072"), "red": hexToRGBA("#ff6188"),
+		"orange": hexToRGBA("#fc9867"), "yellow": hexToRGBA("#ffd866"),
+		"green": hexToRGBA("#a9dc76"), "cyan": hexToRGBA("#78dce8"),
+		"blue": hexToRGBA("#78dce8"), "purple": hexToRGBA("#ab9df2"),
+	},
+
 	"classic": {
 		"background": hexToRGBA("#2d2a2e"), "foreground": hexToRGBA("#fcfcfa"),
 		"comment": hexToRGBA("#727072"), "red": hexToRGBA("#ff6188"),

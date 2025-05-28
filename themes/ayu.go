@@ -3,6 +3,16 @@ package themes
 import "image/color"
 
 var Ayu = map[string]map[string]color.RGBA{
+	"default": {
+		"background": hexToRGBA("#0f1419"), "foreground": hexToRGBA("#b3b1ad"),
+		"comment": hexToRGBA("#5c6773"), "cyan": hexToRGBA("#36a3d9"),
+		"blue": hexToRGBA("#39bae6"), "purple": hexToRGBA("#c296eb"),
+		"green": hexToRGBA("#aad94c"), "red": hexToRGBA("#f07178"),
+		"orange": hexToRGBA("#f29718"), "yellow": hexToRGBA("#ffb454"),
+		"selection": hexToRGBA("#253340"), "lineHighlight": hexToRGBA("#14191f"),
+		"caret": hexToRGBA("#ffcc66"), "accent": hexToRGBA("#5ccfe6"),
+	},
+
 	"light": {
 		"background": hexToRGBA("#fafafa"), "foreground": hexToRGBA("#5c6773"),
 		"comment": hexToRGBA("#abb0b6"), "cyan": hexToRGBA("#55b4d4"),
