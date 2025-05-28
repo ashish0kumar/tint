@@ -7,14 +7,19 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync"
 )
 
-func init() {
+var logInitOnce sync.Once
+
+func setLogFlags() {
 	log.SetFlags(0) // Simpler logging output
 }
 
 // hexToRGBA converts a hexadecimal color string ("#RRGGBB" or "#RRGGBBAA") to a color.RGBA
 func hexToRGBA(hex string) color.RGBA {
+	logInitOnce.Do(setLogFlags)
+
 	if len(hex) < 7 || hex[0] != '#' {
 		log.Fatalf("invalid hex color string: %s", hex)
 	}
@@ -103,7 +108,7 @@ func GetPalette(themeAndFlavor string) ([]color.Color, error) {
 	themeMap, ok := AllThemeData[themeName]
 	if !ok {
 		return nil, fmt.Errorf("invalid theme '%s'. Available themes: %s",
-			themeName, strings.Join(GetAvailableThemeNames(), ", "))
+		themeName, strings.Join(GetAvailableThemeNames(), ", "))
 	}
 
 	var selectedPaletteMap map[string]color.RGBA
@@ -116,7 +121,7 @@ func GetPalette(themeAndFlavor string) ([]color.Color, error) {
 				return nil, fmt.Errorf("theme '%s' does not have flavors, use just '%s'", themeName, themeName)
 			}
 			return nil, fmt.Errorf("invalid flavor '%s' for theme '%s'. Available flavors: %s",
-				subFlavor, themeName, strings.Join(availableFlavors, ", "))
+			subFlavor, themeName, strings.Join(availableFlavors, ", "))
 		}
 	} else {
 		if defaultPalette, ok := themeMap["default"]; ok {
