@@ -22,7 +22,7 @@
 
 `tint` is a command-line tool to **recolor images using your favorite theme palettes**. It's designed for those who appreciate a cohesive visual aesthetic, letting you match your wallpapers or other images to your favorite themes.
 
-<hr>
+---
 
 ## Features
 
@@ -33,6 +33,8 @@
 - **Image Format Support:** Works with JPEG and PNG image files.
 - **Efficient Processing:**  Leverages Go's concurrency for quick processing, especially for large images.
 - **Lightweight & Dependency-Free:** A single, self-contained Go binary with no external dependencies.
+
+---
 
 ## Available Themes
 
@@ -52,23 +54,34 @@
 | Solarized   | dark, light                                    |
 | Tokyonight  | light, night, storm                            |
 
+---
+
 ## Installation
 
-### Prerequisites:
-
-[Go 1.18+](https://golang.org/doc/install)
-
-### Arch Linux AUR
+### Arch Linux (AUR)
 
 ```bash
 yay -S tint
 ```
 
-### Void Linux XBPS-SRC
+### Void Linux (XBPS-SRC)
 
-The template is available at this [link](https://github.com/elbachir-one/void-templates)
+Maintainer: [elbachir-one](https://github.com/elbachir-one)
+
+Assuming you have [void-packages](https://github.com/void-linux/void-packages) cloned:
+
+```bash
+git clone https://github.com/elbachir-one/void-templates
+cd void-templates
+cp -r tint/ ../void-packages/srcpkgs/
+cd ../void-packages
+./xbps-src pkg tint
+sudo xbps-install -R hostdir/binpkgs tint
+```
 
 ### Install via `go install`
+
+Ensure your Go environment is set up (`GOBIN` is in your `PATH`), then run:
 
 ```bash
 go install github.com/ashish0kumar/tint@latest
@@ -76,7 +89,7 @@ go install github.com/ashish0kumar/tint@latest
 
 ### Build from Source
 
-Clone the repo, build the project and move it inside your `$PATH`
+Clone the repo, build the project and move it inside your `$PATH`:
 
 ```bash
 git clone --depth=1 https://github.com/ashish0kumar/tint
@@ -85,6 +98,8 @@ go build
 sudo mv tint /usr/local/bin/
 tint -h
 ```
+
+---
 
 ## Usage
 
@@ -154,6 +169,8 @@ tint -i wallpaper.png -t tokyonight --power 3.5
 # List all available themes and flavors
 tint --list-themes
 ```
+
+---
 
 ## Development
 
@@ -232,6 +249,8 @@ I'd love to expand `tint`'s theme collection! If you have a favorite theme not y
     - Create a new branch for your changes.
     - Commit your new theme file and the changes to `themes/registry.go`
     - Open a Pull Request, explaining your new theme.
+
+---
 
 ## Contributing
 
