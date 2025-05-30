@@ -64,6 +64,10 @@
 yay -S tint
 ```
 
+### Void Linux XBPS-SRC
+
+The template is available at this [link](https://github.com/elbachir-one/void-templates)
+
 ### Install via `go install`
 
 ```bash
