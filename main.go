@@ -471,22 +471,28 @@ func openFileInDefaultViewer(filePath string) {
 	var cmd *exec.Cmd
 
 	switch runtime.GOOS {
-	case "darwin": // macOS
+	case "darwin":
 		cmd = exec.Command("open", filePath)
-	case "windows": // Windows
-		cmd = exec.Command("cmd", "/c", "start", filePath)
-	case "linux": // Linux
+
+	case "windows":
+		cmd = exec.Command("cmd", "/c", "start", "", "\""+filePath+"\"")
+
+	case "linux":
+		if _, err := exec.LookPath("xdg-open"); err != nil {
+			log.Println("xdg-open not found; please install it to open files.")
+			return
+		}
 		cmd = exec.Command("xdg-open", filePath)
+
 	default:
-		log.Printf("Unsupported operating system for automatic file opening: %s", runtime.GOOS)
+		log.Printf("Unsupported operating system: %s", runtime.GOOS)
 		return
 	}
 
-	err := cmd.Start()
-	if err != nil {
-		log.Printf("Failed to open file '%s' in default viewer: %v", filePath, err)
+	if err := cmd.Run(); err != nil {
+		log.Printf("Failed to open file '%s': %v", filePath, err)
 	} else {
-		log.Printf("Opened '%s' in default viewer.", filePath)
+		log.Printf("Opened '%s' successfully.", filePath)
 	}
 }
 
