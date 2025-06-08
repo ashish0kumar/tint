@@ -263,7 +263,7 @@ This project has been inspired by the work of others in the open-source communit
 - [Achno/gowall](https://github.com/Achno/gowall)
 - [ozwaldorf/lutgen-rs](https://github.com/ozwaldorf/lutgen-rs)
 - [nekowinston/faerber](https://github.com/nekowinston/faerber)
-- [lighttigerXIV/catppuccinifier](https://github.com/doprz/dipc)
+- [lighttigerXIV/catppuccinifier](https://github.com/lighttigerXIV/catppuccinifier)
 - [doprz/dipc](https://github.com/doprz/dipc)
 
 ## License
