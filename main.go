@@ -35,9 +35,9 @@ const (
 	bold      = "\033[1m"
 	underline = "\033[4m"
 	reset     = "\033[0m"
-
-	version = "0.1.1"
 )
+
+var version = "dev"
 
 // toRGBA converts any color.Color to color.RGBA
 func toRGBA(c color.Color) color.RGBA {
