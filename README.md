@@ -64,19 +64,10 @@
 yay -S tint
 ```
 
-### Void Linux (XBPS-SRC)
-
-Maintainer: [elbachir-one](https://github.com/elbachir-one)
-
-Assuming you have [void-packages](https://github.com/void-linux/void-packages) cloned:
+### Void Linux
 
 ```bash
-git clone https://github.com/elbachir-one/void-templates
-cd void-templates
-cp -r tint/ ../void-packages/srcpkgs/
-cd ../void-packages
-./xbps-src pkg tint
-sudo xbps-install -R hostdir/binpkgs tint
+sudo xbps-install -S tint
 ```
 
 ### Install via `go install`
