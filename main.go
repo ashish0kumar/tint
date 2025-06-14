@@ -29,7 +29,7 @@ const (
 	// Default params for Shepard's Method
 	defaultLuminosity = 1.0
 	defaultNearest    = 30
-	defaultPower      = 2.5
+	defaultPower      = 4.0
 
 	// ANSI escape codes for formatting
 	bold      = "\033[1m"
