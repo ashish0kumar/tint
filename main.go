@@ -475,7 +475,7 @@ func openFileInDefaultViewer(filePath string) {
 		cmd = exec.Command("open", filePath)
 
 	case "windows":
-		cmd = exec.Command("cmd", "/c", "start", "", "\""+filePath+"\"")
+		cmd = exec.Command("cmd", "/c", "start", "", filePath)
 
 	case "linux":
 		if _, err := exec.LookPath("xdg-open"); err != nil {
@@ -510,7 +510,7 @@ func main() {
 	var power float64
 	var listThemesFlag bool
 	var showVersion bool
-
+  var open bool
 	// --- Define and parse flags ---
 
 	flag.StringVar(&imagePath, "image", "", "Path to the input image (required). Supports JPEG, PNG")
@@ -527,6 +527,8 @@ func main() {
 
 	flag.BoolVar(&showVersion, "version", false, "Print the program version and exit")
 	flag.BoolVar(&showVersion, "v", false, "Shorthand for -version")
+
+	flag.BoolVar(&open,"open",false,"open the recolored image in the default viewer")
 
 	// Params specific to Shepard's Method
 	flag.Float64Var(&luminosity, "luminosity", defaultLuminosity, "Luminosity adjustment factor (e.g., 0.8 for darker, 1.2 for brighter)")
@@ -599,7 +601,10 @@ func main() {
 	log.Printf("Saved image: '%s'\n", outPath)
 
 	// --- Open output image in default viewer ---
+	if(open){
+	log.Print(outPath)
 	openFileInDefaultViewer(outPath)
+	}
 }
 
 // setUsage prints the custom help message
@@ -645,6 +650,10 @@ func setUsage() {
 	// List Themes
 	fmt.Fprintf(w, "  %s--list-themes, -l%s\n", bold, reset)
 	fmt.Fprintf(w, "\tList all available themes and their flavors.\n\n")
+
+	// Open Option
+	fmt.Fprintf(w,"  %s--open\n%s",bold,reset)
+	fmt.Fprintf(w,"\topen the recolored image in the default viewer \n\n")
 
 	// Version
 	fmt.Fprintf(w, "  %s--version, -v%s\n", bold, reset)
