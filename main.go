@@ -528,7 +528,7 @@ func main() {
 	flag.BoolVar(&showVersion, "version", false, "Print the program version and exit")
 	flag.BoolVar(&showVersion, "v", false, "Shorthand for -version")
 
-	flag.BoolVar(&open,"open",false,"open the recolored image in the default viewer")
+	flag.BoolVar(&open,"not-open",false,"not open the recolored image in the default viewer")
 
 	// Params specific to Shepard's Method
 	flag.Float64Var(&luminosity, "luminosity", defaultLuminosity, "Luminosity adjustment factor (e.g., 0.8 for darker, 1.2 for brighter)")
@@ -601,7 +601,7 @@ func main() {
 	log.Printf("Saved image: '%s'\n", outPath)
 
 	// --- Open output image in default viewer ---
-	if(open){
+	if(!open){
 	log.Print(outPath)
 	openFileInDefaultViewer(outPath)
 	}
@@ -652,8 +652,8 @@ func setUsage() {
 	fmt.Fprintf(w, "\tList all available themes and their flavors.\n\n")
 
 	// Open Option
-	fmt.Fprintf(w,"  %s--open\n%s",bold,reset)
-	fmt.Fprintf(w,"\topen the recolored image in the default viewer \n\n")
+	fmt.Fprintf(w,"  %s--not-open\n%s",bold,reset)
+	fmt.Fprintf(w,"\tnot open the recolored image in the default viewer \n\n")
 
 	// Version
 	fmt.Fprintf(w, "  %s--version, -v%s\n", bold, reset)
