@@ -130,6 +130,9 @@ Options:
 
   --list-themes, -l
         List all available themes and their flavors.
+        
+  --not-open
+        not open the recolored image in the default viewer
 
   --vesion, -v
         Check the version.
