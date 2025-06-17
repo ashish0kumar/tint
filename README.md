@@ -64,6 +64,12 @@
 yay -S tint
 ```
 
+### Nix
+
+```bash
+nix profile install nixpkgs#tint
+```
+
 ### Void Linux
 
 ```bash
