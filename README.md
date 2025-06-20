@@ -1,26 +1,20 @@
-<h1 align="center">🎨 tint</h1>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" />
-</p>
+<h1 align="center">tint</h1>
 
 <div align="center">
 <p>
-<a href="https://github.com/ashish0kumar/tint/stargazers"><img src="https://img.shields.io/github/stars/ashish0kumar/tint?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=C9CBFF&labelColor=302D41" alt="stars"><a>&nbsp;&nbsp;
-<a href="https://github.com/ashish0kumar/tint/"><img src="https://img.shields.io/github/repo-size/ashish0kumar/tint?style=for-the-badge&logo=hyprland&logoColor=f9e2af&label=Size&labelColor=302D41&color=f9e2af" alt="REPO SIZE"></a>&nbsp;&nbsp;
-<a href="https://github.com/ashish0kumar/tint/releases"><img src="https://img.shields.io/github/v/release/ashish0kumar/tint?style=for-the-badge&logo=github&logoColor=eba0ac&label=Release&labelColor=302D41&color=eba0ac" alt="Releases"></a>&nbsp;&nbsp;
-<a href="https://github.com/ashish0kumar/tint/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ashish0kumar/tint?style=for-the-badge&logo=&color=CBA6F7&logoColor=CBA6F7&labelColor=302D41" alt="LICENSE"></a>&nbsp;&nbsp;
+<a href="https://github.com/ashish0kumar/tint/stargazers"><img src="https://img.shields.io/github/stars/ashish0kumar/tint?style=for-the-badge&logo=starship&color=CBA6F7&logoColor=cdd6f4&labelColor=302D41" alt="stars"><a>&nbsp;&nbsp;
+<a href="https://github.com/ashish0kumar/tint/releases"><img src="https://img.shields.io/github/v/release/ashish0kumar/tint?style=for-the-badge&logo=github&color=CBA6F7&logoColor=cdd6f4&labelColor=302D41" alt="Releases"></a>&nbsp;&nbsp;
+<a href="https://github.com/ashish0kumar/tint/blob/main/LICENSE"><img src="https://img.shields.io/github/license/ashish0kumar/tint?style=for-the-badge&logo=googledocs&color=CBA6F7&logoColor=cdd6f4&labelColor=302D41" alt="LICENSE"></a>&nbsp;&nbsp;
 </p>
 </div>
 
-<br>
+<p align="center">
+Command-line tool to recolor images using your favorite theme palettes
+</p>
+
 <div align="center">
 <img src="assets/example.webp" width="80%" />
 </div>
-
-<br>
-
-`tint` is a command-line tool to **recolor images using your favorite theme palettes**. It's designed for those who appreciate a cohesive visual aesthetic, letting you match your wallpapers or other images to your favorite themes.
 
 ---
 
