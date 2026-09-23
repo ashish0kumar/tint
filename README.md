@@ -252,12 +252,6 @@ This project has been inspired by the work of others in the open-source communit
 
 Contributions are always welcome! If you have ideas, bug reports, or want to submit code, please feel free to open an issue or a pull request.
 
-## Contributors
-
-<a href="https://github.com/ashish0kumar/tint/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=ashish0kumar/tint" />
-</a>
-
 <br><br>
 
 <p align="center">
